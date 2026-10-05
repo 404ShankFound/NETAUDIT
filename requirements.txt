@@ -1,0 +1,10 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+python-multipart==0.0.20
+pyshark==0.6
+scapy==2.6.1
+reportlab==4.2.5
+jinja2==3.1.5
+pytest==8.3.4
+httpx==0.28.1

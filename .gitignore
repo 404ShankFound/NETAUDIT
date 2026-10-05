@@ -1,0 +1,13 @@
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+data/*.db
+uploads/*
+!uploads/.gitkeep
+reports/*
+!reports/.gitkeep
+sample_pcaps/*
+!sample_pcaps/.gitkeep
+*.pdf
+.env

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NetAudit | PCAP Analysis</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+  <main class="max-w-7xl mx-auto px-5 py-8">
+    <header class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div><p class="eyebrow">ICT 3141 · Information Security Lab</p><h1>NetAudit</h1><p class="subtitle">Automated PCAP &amp; Network Traffic Analysis Toolkit</p></div>
+      <a id="report-link" class="button secondary hidden" href="#">Download PDF Report</a>
+    </header>
+
+    <section class="panel upload-panel">
+      <div><h2>Analyze a PCAP</h2><p>Upload a `.pcap` file. NetAudit validates it, parses it through PyShark/TShark, stores telemetry in SQLite, and runs explainable security checks.</p></div>
+      <form id="upload-form"><label class="dropzone" for="pcap-file"><input id="pcap-file" type="file" accept=".pcap" required><span>Choose a `.pcap` file</span><small id="chosen-file">Maximum 50 MB</small></label><button class="button" type="submit">Upload &amp; Analyze</button></form>
+      <p id="upload-status" class="status" aria-live="polite"></p>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="summary-grid">
+        <article class="metric"><span>Packets</span><strong id="metric-packets">—</strong></article><article class="metric"><span>Duration</span><strong id="metric-duration">—</strong></article><article class="metric"><span>Unique IPs</span><strong id="metric-ips">—</strong></article><article class="metric"><span>Alerts</span><strong id="metric-alerts">—</strong></article><article class="metric threat"><span>Threat Score</span><strong id="metric-score">—</strong><small id="metric-severity">—</small></article>
+      </div>
+      <section class="grid charts"><article class="panel"><h2>Protocol Distribution</h2><canvas id="protocol-chart"></canvas></article><article class="panel"><h2>Packets over Time</h2><canvas id="traffic-chart"></canvas></article><article class="panel"><h2>Top Source IPs</h2><canvas id="source-chart"></canvas></article><article class="panel"><h2>Top Destination IPs</h2><canvas id="destination-chart"></canvas></article><article class="panel"><h2>Top Destination Ports</h2><canvas id="port-chart"></canvas></article><article class="panel"><h2>Alert Counts</h2><canvas id="alert-chart"></canvas></article></section>
+      <section class="grid details"><article class="panel"><h2>Threat Overview</h2><p id="threat-message"></p><ul id="reasons" class="reason-list"></ul></article><article class="panel"><h2>Traffic Statistics</h2><dl id="traffic-stats" class="stats-list"></dl></article></section>
+      <section class="panel"><h2>Security Findings</h2><div class="table-wrap"><table><thead><tr><th>Severity</th><th>Type</th><th>Source</th><th>Time</th><th>Evidence</th></tr></thead><tbody id="alerts-table"></tbody></table></div></section>
+      <section class="panel"><div class="table-heading"><div><h2>Packet Explorer</h2><p>Stored telemetry from SQLite (first 100 matching records).</p></div><input id="packet-search" placeholder="Filter IP or protocol"></div><div class="table-wrap"><table><thead><tr><th>#</th><th>Time</th><th>Source</th><th>Destination</th><th>Protocol</th><th>Ports</th><th>Bytes</th></tr></thead><tbody id="packets-table"></tbody></table></div></section>
+    </section>
+  </main><script src="/static/dashboard.js"></script>
+</body></html>
